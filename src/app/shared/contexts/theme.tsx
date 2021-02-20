@@ -13,13 +13,13 @@ export const ThemeProvider: React.FC = ({ children }) => {
         if (isDark) {
             document.documentElement.style.setProperty('--color-background-paper', '#3a3a3a');
             document.documentElement.style.setProperty('--color-background', '#1b1b1b');
-            document.documentElement.style.setProperty('--color-primary', '#ec1414');
+            document.documentElement.style.setProperty('--color-primary', '#0b62aa');
             document.documentElement.style.setProperty('--color-border', '#8c8c8c');
             document.documentElement.style.setProperty('--color-text', '#fff');
         } else {
             document.documentElement.style.setProperty('--color-background-paper', '#fafafa');
             document.documentElement.style.setProperty('--color-background', '#f0f2f5');
-            document.documentElement.style.setProperty('--color-primary', '#fb1b1b');
+            document.documentElement.style.setProperty('--color-primary', '#0b62aa');
             document.documentElement.style.setProperty('--color-border', '#afafaf');
             document.documentElement.style.setProperty('--color-text', '#000');
         }

@@ -1,23 +1,26 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Button } from '../../shared/components/Button';
 import { useTheme } from '../../shared/hooks/useTheme';
 import './Signup.css';
 import '../../styles/animations.css';
+import { SignupService } from '../../shared/services/signup-service/SignupService';
 
 export const Signup: React.FC = () => {
 
     const RepeatedPasswordRef = useRef<HTMLInputElement>(null)
 
+    const history = useHistory()
+
     const { isDark, toggleDarkMode } = useTheme();
 
     const [name, setName] = useState('')
-    const [userName, setUserName] = useState('')
+    const [username, setUserName] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [RepeatedPassword, setRepeatedPassword] = useState('');
-    const [keepConnected, setKeepConnected] = useState(true);
+    // const [keepConnected, setKeepConnected] = useState(true);
 
     const handleOnChangePassword = useCallback((value: string) => {
         setPassword(value)
@@ -48,14 +51,26 @@ export const Signup: React.FC = () => {
         }
     },[password])
 
-    const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(email, password);
-    }, [email, password, RepeatedPassword]);
+
+        const result = await SignupService.signup({ name, email, password, username })
+
+        if(result.success){
+            history.push('/signin')
+        }else{
+            if(!result.messages || result.messages.length == 0){
+                alert('Erro no cadastro!')
+            }else{
+                alert(result.messages.join(',\n'))
+            }
+        }
+
+    }, [name, username, email, password]);
 
     return (
         <div className="signup-base flex-content-center flex-items-center">
-            <div className="padding-g shadow-m border-radius-soft flex-column flex-items-center background-paper">
+            <div className="padding-g shadow-m border-radius-soft flex-column flex-items-center background-paper translate-in-y">
                 <h2>Cadastrar</h2>
 
                 <div className="margin-top-m">
@@ -75,7 +90,7 @@ export const Signup: React.FC = () => {
                             type="text"
                             minLength={2}
                             maxLength={80}
-                            value={userName}
+                            value={username}
                             placeholder="Digite seu nome de usuário"
                             onChange={(e) => setUserName(e.target.value)}
                             className="padding-m font-size-m margin-top-s"
@@ -112,7 +127,7 @@ export const Signup: React.FC = () => {
                             className="padding-m font-size-m margin-top-s"
                         />
 
-                        <label className="font-size-m margin-top-s padding-top-s padding-bottom-s display-flex flex-items-center">
+                        {/* <label className="font-size-m margin-top-s padding-top-s padding-bottom-s display-flex flex-items-center">
                             <input
                                 type="checkbox"
                                 checked={keepConnected}
@@ -121,7 +136,7 @@ export const Signup: React.FC = () => {
                                 onChange={() => setKeepConnected(!keepConnected)}
                             />
                             Manter conectado
-                        </label>
+                        </label> */}
 
                         <Button>Cadastrar</Button>
                     </form>

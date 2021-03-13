@@ -37,6 +37,10 @@ const signup =  async (user: IUserSignup): Promise<IRequestResult> => {
             result.messages?.push('User name: ' +error)
         });
 
+    }else if(err.message === "Network Error"){
+        if(result.messages){
+            result.messages.push("Você está offline...")
+        }
     }
 
     return result

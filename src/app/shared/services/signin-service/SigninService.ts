@@ -7,7 +7,7 @@ import { AxiosError } from "axios"
 const signin =  async (email: string, password: string): Promise<IRequestResult> => {
    try {
 
-        await Api.post('/Signin', undefined, {headers: {email, password}})
+        await Api.post('/sign-in', {email, password})
         return {success: true}
 
    } catch (error) {

@@ -12,7 +12,7 @@ interface IUserSignup{
 const signup =  async (user: IUserSignup): Promise<IRequestResult> => {
    try {
 
-        await Api.post('/SignUp', user)
+        await Api.post('/sign-up', user)
         return {success: true}
 
    } catch (error) {

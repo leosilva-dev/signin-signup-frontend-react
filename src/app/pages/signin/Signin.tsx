@@ -1,37 +1,24 @@
 import React, { useCallback, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DarkModeCheckbox } from "../../shared/components";
 
 import { Button } from "../../shared/components/Button";
-import { useTheme } from "../../shared/hooks/useTheme";
-import { SigninService } from "../../shared/services/signin-service/SigninService";
+import { useAuth } from "../../shared/hooks";
 import "./Signin.css";
 
 export const Signin: React.FC = () => {
-  const { isDark, toggleDarkMode } = useTheme();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [keepConnected, setKeepConnected] = useState(true);
-  const history = useHistory();
 
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-
-      const result = await SigninService.signin(email, password);
-
-      if (result.success) {
-        history.push("/dashboard");
-      } else {
-        if (!result.messages || result.messages.length === 0) {
-          alert("Erro no login!");
-        } else {
-          alert(result.messages.join(",\n"));
-        }
-      }
+      await login(email, password);
     },
-    [email, password, history]
+    [email, password, login]
   );
 
   return (

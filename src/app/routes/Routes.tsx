@@ -1,19 +1,15 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { PrivateRoutes } from "./PrivateRoutes";
 
-import { Signin } from '../pages/signin/Signin';
-import { Signup } from '../pages/signup/Signup';
+import { PublicRoutes } from "./PublicRoutes";
 
 export const Routes: React.FC = () => {
+  const isAuth = false;
 
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Route exact path="/signin" component={Signin} />
-                <Route exact path="/signup" component={Signup} />
-
-                <Route exact path="*" component={() => <Redirect to="/signin" />} />
-            </Switch>
-        </BrowserRouter>
-    );
-}
+  return (
+    <BrowserRouter>
+      {isAuth ? <PrivateRoutes /> : <PublicRoutes />}
+    </BrowserRouter>
+  );
+};

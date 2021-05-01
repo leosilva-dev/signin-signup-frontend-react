@@ -6,6 +6,7 @@ import { useTheme } from "../../shared/hooks/useTheme";
 import "./Signup.css";
 import "../../styles/animations.css";
 import { SignupService } from "../../shared/services/signup-service/SignupService";
+import { DarkModeCheckbox } from "../../shared/components";
 
 export const Signup: React.FC = () => {
   const RepeatedPasswordRef = useRef<HTMLInputElement>(null);
@@ -181,7 +182,8 @@ export const Signup: React.FC = () => {
         )}
       </div>
 
-      <div className="dark-mode-container">
+      <DarkModeCheckbox />
+      {/* <div className="dark-mode-container">
         <label className="font-size-m padding-g display-flex flex-items-center">
           <input
             type="checkbox"
@@ -191,7 +193,7 @@ export const Signup: React.FC = () => {
           />
           Tema escuro
         </label>
-      </div>
+      </div> */}
     </div>
   );
 };

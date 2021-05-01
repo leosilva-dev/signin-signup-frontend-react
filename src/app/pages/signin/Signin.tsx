@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { DarkModeCheckbox } from "../../shared/components";
 
 import { Button } from "../../shared/components/Button";
 import { useTheme } from "../../shared/hooks/useTheme";
@@ -79,8 +80,8 @@ export const Signin: React.FC = () => {
           Cadastrar-se
         </Link>
       </div>
-
-      <div className="dark-mode-container">
+      <DarkModeCheckbox />
+      {/* <div className="dark-mode-container">
         <label className="font-size-m padding-g display-flex flex-items-center">
           <input
             type="checkbox"
@@ -90,7 +91,7 @@ export const Signin: React.FC = () => {
           />
           Tema escuro
         </label>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,11 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { useAuth } from "../shared/hooks";
 import { PrivateRoutes } from "./PrivateRoutes";
 
 import { PublicRoutes } from "./PublicRoutes";
 
 export const Routes: React.FC = () => {
-  const isAuth = false;
+  const { isAuth } = useAuth();
 
   return (
     <BrowserRouter>

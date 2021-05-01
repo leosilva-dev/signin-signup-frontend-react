@@ -4,11 +4,16 @@ import { AxiosError } from "axios"
 
 
 
-const signin =  async (email: string, password: string): Promise<IRequestResult> => {
+const signin =  async (email: string, password: string): Promise<IRequestResult<{accessToken?: string}>> => {
    try {
 
-        await Api.post('/sign-in', {email, password})
-        return {success: true}
+        const { data } = await Api.post('/sign-in', {email, password})
+
+        if(data?.accessToken){
+            return {success: true, data:{accessToken: data.accessToken}}
+        }else{
+            return {success: false}
+        }
 
    } catch (error) {
 
